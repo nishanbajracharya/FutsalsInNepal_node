@@ -4,13 +4,31 @@
 </div>
 <script>
 	var map;
-
+	var pos;
 	var mp = (<%- JSON.stringify(results) %>);
 	console.log(mp);
 	var markerC = [];
+	var mapCircles = [];
 	for(i in mp){
 		if(mp[i].map != undefined) markerC.push(mp[i]);
 	}
+	var cityCircle;
+	var nearFutsalArray = null;
+	var rad = function(x) {
+		return x * Math.PI / 180;
+	};
+
+	var getDistance = function(p1, p2) {
+		var R = 6378137;
+		var dLat = rad(p2.lat - p1.lat);
+		var dLong = rad(p2.lng - p1.lng);
+		var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+		Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
+		Math.sin(dLong / 2) * Math.sin(dLong / 2);
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		var d = R * c;
+		return d;
+	};
 	function initMap() {
 
 		map = new google.maps.Map(document.getElementById('map'), {
@@ -22,7 +40,7 @@
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
         	navigator.geolocation.getCurrentPosition(function(position) {
-        		var pos = {
+        		pos = {
         			lat: position.coords.latitude,
         			lng: position.coords.longitude
         		};
@@ -38,30 +56,79 @@
         		handleLocationError(true, null, map.getCenter());
         	});
         } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, null, map.getCenter());
-      }
-      for(i in markerC){
-      	var coor = markerC[i].map.split(',');
-      	var pos = {
-      		lat: parseFloat(coor[0]),
-      		lng: parseFloat(coor[1])
-      	};
-      	var marker = new google.maps.Marker({
-      		position: pos,
-      		map: map,
-      		title: markerC[i].name,
-      		icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-      	});
-      }
-  }
+        	handleLocationError(false, null, map.getCenter());
+        }
+        for(i in markerC){
+        	var coor = markerC[i].map.split(',');
+        	var posi = {
+        		lat: parseFloat(coor[0]),
+        		lng: parseFloat(coor[1])
+        	};
+        	var marker = new google.maps.Marker({
+        		position: posi,
+        		map: map,
+        		title: markerC[i].name,
+        		icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+        	});
+        }
+        cityCircle = new google.maps.Circle();
+        cityCircle.setMap(null);
+    }
+    function nearFutsals(){
+    	nearFutsalArray = [];
+    	//console.log(mp);
+    	for(i in mp){
+    		if(mp[i].map != undefined){
+    			var coor = mp[i].map.split(',');
+    			var fl = {
+    				lat: parseFloat(coor[0]),
+    				lng: parseFloat(coor[1])
+    			};
+    			dist = getDistance(pos,fl)
+    			if(dist<2500){
+    				nearFutsalArray.push(mp[i]);
+    			}
+    		}
+    	}
+    	
+    	near = document.getElementById("nearelements");
+
+    	nearelements.innerHTML = "";
+
+    	for(id in nearFutsalArray){
+    		nearelements.innerHTML+="<div class='futsal col-md-3 col-xs-12 col-sm-4'><div class='elem'><p class='title'>"+nearFutsalArray[id].name+"</p><p class='location'>Address : "+nearFutsalArray[id].address+"</p><p class='Phone'>Phone : "+nearFutsalArray[id].phone+"</p><p class='openhours'>Rate : Rs "+nearFutsalArray[id].rate+" / hour</p><p class='openhours'>Open Hours : "+nearFutsalArray[id].openhours+"</p><a href='/futsals/"+nearFutsalArray[id].name+"'>more</a></div></div>"
+    	}
+
+    	cityCircle.setMap(null);
+    	cityCircle = new google.maps.Circle({
+    		strokeColor: '#49c',
+    		strokeOpacity: 0.8,
+    		strokeWeight: 3,
+    		fillColor: '#000000',
+    		fillOpacity: 0.1,
+    		map: map,
+    		center: pos,
+    		radius: 2500
+    	});
+    	document.getElementById("allFutsal").style.display = "inline-block";
+    	document.getElementById("nearFutsal").style.display = "none";
+    	document.getElementById("nearelements").style.display = "block";
+    	document.getElementById("allelements").style.display = "none";
+    }
+    function clearCircles(){
+    	cityCircle.setMap(null);
+    	document.getElementById("nearFutsal").style.display = "inline-block";
+    	document.getElementById("allFutsal").style.display = "none";
+    	document.getElementById("allelements").style.display = "block";
+    	document.getElementById("nearelements").style.display = "none";
+    }
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9WM8cPSOvqBUNoy_QTYo0ds8u7ReY2Ms&callback=initMap"
 async defer></script>
 <div id="listings">
 	<div class="container">
-		<div class="row">
+		<div class="row" id="allelements" >
 			<%for (var i in results){%>
 			<div class="futsal col-md-3 col-xs-12 col-sm-4">
 				<div class="elem">
@@ -74,6 +141,10 @@ async defer></script>
 				</div>
 			</div>
 			<%}%>
+		</div>
+		<div class="row" id="nearelements">	
+
+			
 		</div>
 	</div>
 </div>

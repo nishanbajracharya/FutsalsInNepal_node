@@ -7,6 +7,8 @@
 			<p>Phone : <%= results.phone %></p>
 			<p>Rate : Rs <%= results.rate %> / hour</p>
 			<p>Open Hours : <%= results.openhours %></p>
+			<button class="button-filled">Update</button>
+			<a href="/futsals/delete/<%=results.name%>"><button class="button-filled">Delete</button></a>
 		</div>
 		<div class="col-md-6 col-sm-4 col-xs-12" style="padding-top:4rem">
 			<div id="map" style="height:400px"></div>

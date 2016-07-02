@@ -10,16 +10,27 @@ router.use(bodyParser.urlencoded({
 router.use(bodyParser.json());
 
 /* GET users listing. */
-router.get('/add', function(req, res, next) {
+router.route('/add').get(function(req, res, next) {
 	res.render("add",{title: 'Futsals In Nepal'});
 });
 
-router.post('/add',function(req,res){
+
+router.route('/:name').get(function(req,res){
+	var name = req.params.name;
+	Futsal.findOne({name:name},function(err,data){
+		if(err) throw err;
+		//console.log(data);
+		res.render("each",{title:"Futsals In Nepal", results:data})
+	})
+})
+
+router.route('/add').post(function(req,res){
 	var name = req.body.name;
 	var address = req.body.address;
 	var phone = req.body.phone;
 	var rate = req.body.rate;
 	var openhours = req.body.openhours;
+	var closehours = req.body.closehours;
 	var coordinates = req.body.coordinates;
 	var futsal = new Futsal({
 		name: name,
@@ -27,7 +38,7 @@ router.post('/add',function(req,res){
 		map:coordinates,
 		phone: phone,
 		rate: rate,
-		openhours: openhours
+		openhours: openhours+"-"+closehours
 	})
 
 	futsal.save(function(err){
@@ -38,13 +49,15 @@ router.post('/add',function(req,res){
 	return res.redirect("/");
 })
 
-router.get('/:name',function(req,res){
+
+router.route('/delete/:name').get(function(req,res){
 	var name = req.params.name;
-	Futsal.findOne({name:name},function(err,data){
+	console.log("Delete "+name);
+	/*Futsal.remove({name:name},function(err){
 		if(err) throw err;
-		console.log(data);
-		res.render("each",{title:"Futsals In Nepal", results:data})
-	})
+		console.log("Deleted");
+	})*/
+	return res.redirect("/");
 })
 
 module.exports = router;
