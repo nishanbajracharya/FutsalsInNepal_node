@@ -1,0 +1,136 @@
+*{
+	font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.float-right{
+	float: right;
+}
+body{
+	background: #fdfdfd;
+}
+header{
+	position: fixed;
+	top:0;
+	left: 0;
+	width: 100%;
+	background: #fff;
+	border-bottom: 1px solid #ddd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.04);
+	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+	padding: 1rem;
+	z-index: 999;
+}
+header h1.title{
+	font-size: 2.5rem;
+	display: inline-block;
+	height: 38px;
+	line-height: 38px;
+	margin: 0;
+}
+button{
+	margin-bottom: 0;
+	height: 38px;
+	border: 1px solid #bbb;
+	padding: 0 30px;
+	outline: none;
+	border-radius: 4px;
+	background: #fff;
+	text-transform: uppercase;
+	color: #555;
+	text-align: center;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 38px;
+	letter-spacing: .1rem;
+	text-transform: uppercase;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer;
+	box-sizing: border-box;
+}
+button:hover{
+	border-color: #aaa;
+	background: #eee;
+	background-image: linear-gradient(
+      #eee, #ddd
+    );
+}
+button:active{
+	border-color: #aaa;
+	background: #ddd;
+	background-image: linear-gradient(
+      #ccc, #ddd
+    );
+}
+button.button-filled{
+	background: #48b;
+	color: #fff;
+	border-color: #47a;
+	background-image: linear-gradient(
+      #49c, #48b
+    );
+}
+button.button-filled:hover{
+	background: #47a;
+	color: #fff;
+	border-color: #469;
+	background-image: linear-gradient(
+      #48b, #47a
+    );
+}
+button.button-filled:active{
+	background: #469;
+	color: #fff;
+	border-color: #469;
+	background-image: linear-gradient(
+      #469, #47a
+    );
+}
+#map{
+	width: 100%;
+	height: 400px;
+	border-bottom: 1px solid #ccc;
+}
+.futsal{
+	padding: 1rem;
+}
+.futsal .elem{
+	background: #fff;
+	border: 1px solid #ddd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.04);
+	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+	border-radius: 4px;
+	padding-bottom: 1rem;
+}
+.futsal p, .futsal a{
+	padding: 1rem;
+	margin: 0;
+}
+.futsal a{
+	padding: 0 1rem;
+	display: block;
+	text-align: right;
+}
+.futsal .title{
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+	background: #eee;
+	background-image: linear-gradient(
+      #fafafa, #eee
+    );
+}
+form *{
+	font-size: 18px;
+}
+form input{
+	border-radius: 4px;
+	padding: 0.4rem 1rem;
+	border:1px solid #bbb;
+	outline:none;
+}
+form label{
+	float: right;
+	line-height: 35px;
+}
+form .row{
+	margin-bottom: 1rem;
+}

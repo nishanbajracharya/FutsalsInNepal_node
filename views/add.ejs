@@ -1,0 +1,141 @@
+<% include layout %>
+<div class="container">
+	<div class="row">
+		<h1 style="margin-bottom:0;margin-left:1.5rem">Add a Futsal here</h1>
+	</div>
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<p style="font-size: 18px; font-weight:bold;margin-top:1rem;">Select your location on the map </p>
+			<div id="map" style="border:1px solid #ccc">
+
+			</div>
+			<script>
+				var map;
+				var gmarkers = [];
+				function removeMarkers(){
+					for(i=0; i<gmarkers.length; i++){
+						gmarkers[i].setMap(null);
+					}
+				}
+
+				function initMap() {
+
+					map = new google.maps.Map(document.getElementById('map'), {
+						center: {lat: 0, lng: 0},
+						zoom: 15
+					});
+
+
+
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(function(position) {
+							var pos = {
+								lat: position.coords.latitude,
+								lng: position.coords.longitude
+							};
+
+							map.setCenter(pos);
+						}, function() {
+							handleLocationError(true, null, map.getCenter());
+						});
+					} else {
+						handleLocationError(false, null, map.getCenter());
+					}
+
+					var geocoder = new google.maps.Geocoder;
+
+					map.addListener('click',function(event){
+						removeMarkers();
+						console.log(event.latLng);
+						var pos = {
+							lat: event.latLng.lat(),
+							lng: event.latLng.lng()
+						};
+
+						//map.panTo(pos);
+
+						geocoder.geocode({'location': pos}, function(results, status) {
+							if (status === google.maps.GeocoderStatus.OK) {
+								if (results[1]) {
+									var marker = new google.maps.Marker({
+										position: pos,
+										map: map
+									});
+									gmarkers.push(marker);
+									console.log(results[1].formatted_address);
+									document.getElementById("address").value = results[1].formatted_address;
+									document.getElementById("coordinates").value = Math.round(pos.lat*10000)/10000+","+Math.round(pos.lng*10000)/10000;
+								} else {
+									window.alert('No results found');
+								}
+							} else {
+								window.alert('Geocoder failed due to: ' + status);
+							}
+						});
+					})
+
+				}
+			</script>
+
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9WM8cPSOvqBUNoy_QTYo0ds8u7ReY2Ms&callback=initMap"
+			async defer></script>
+		</div>
+	</div>
+	<div class="row" style="margin-top:2rem">
+		<form action="/futsals/add" method="POST">
+			<div class="row">
+				<div class="col-md-5 col-xs-12 col-sm-3">
+					<label for="name">Name</label> 
+				</div>
+				<div class="col-md-7 com-xs-12 col-sm-9">
+					<input type="text" id="name" name="name">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-5 col-xs-12 col-sm-3">
+					<label for="address">Address</label> 
+				</div>
+				<div class="col-md-7 com-xs-12 col-sm-9">
+					<input type="text" id="address" name="address">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-5 col-xs-12 col-sm-3">
+					<label for="phone">Phone</label> 
+				</div>
+				<div class="col-md-7 com-xs-12 col-sm-9">
+					<input type="text" id="phone" name="phone">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-5 col-xs-12 col-sm-3">
+					<label for="rate">Rate (Rs/hr)</label> 
+				</div>
+				<div class="col-md-7 com-xs-12 col-sm-9">
+					<input type="text" id="rate" name="rate">
+				</div>
+			</div>
+			<div class="row" style="display:none">
+				<div class="col-md-5 col-xs-12 col-sm-3">
+					<label for="coordinates">Coordinates</label> 
+				</div>
+				<div class="col-md-7 com-xs-12 col-sm-9">
+					<input type="text" id="coordinates" name="coordinates">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-5 col-xs-12 col-sm-3">
+					<label for="openhours">Open Hours</label> 
+				</div>
+				<div class="col-md-7 com-xs-12 col-sm-9">
+					<input type="text" id="openhours" name="openhours">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-xs-12 col-sm-12">
+					<center><button class="button-filled" style="font-size:14px;margin-top:2rem">Add Futsal</button></center>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

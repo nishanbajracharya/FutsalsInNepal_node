@@ -1,0 +1,38 @@
+<% include layout %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-sm-8 col-xs-12">
+			<p><h1><%= results.name %></h1></p>
+			<p>Address : <%= results.address %></p>
+			<p>Phone : <%= results.phone %></p>
+			<p>Rate : Rs <%= results.rate %> / hour</p>
+			<p>Open Hours : <%= results.openhours %></p>
+		</div>
+		<div class="col-md-6 col-sm-4 col-xs-12" style="padding-top:4rem">
+			<div id="map" style="height:400px"></div>
+			<script>
+				var map;
+				var mp = (<%- JSON.stringify(results) %>);
+				var mparr = [0,0];
+				if(mp.map !=undefined){
+					mparr = mp.map.split(",");
+				}
+				function initMap() {
+
+					map = new google.maps.Map(document.getElementById('map'), {
+						center: {lat: parseFloat(mparr[0]), lng: parseFloat(mparr[1])},
+						zoom: 15
+					});
+					var marker = new google.maps.Marker({
+						position: {lat: parseFloat(mparr[0]), lng: parseFloat(mparr[1])},
+						map: map,
+						title: mp.name,
+						icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+					});
+				}
+			</script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9WM8cPSOvqBUNoy_QTYo0ds8u7ReY2Ms&callback=initMap"
+			async defer></script>
+		</div>
+	</div>
+</div>
