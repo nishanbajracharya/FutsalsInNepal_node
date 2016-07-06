@@ -32,7 +32,7 @@
 	function initMap() {
 
 		map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: 0, lng: 0},
+			center: {lat: 27.7172, lng: 85.3240},
 			zoom: 14
 		});
 
@@ -69,6 +69,12 @@
         		map: map,
         		title: markerC[i].name,
         		icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+        	});
+        	marker['infowindow'] = new google.maps.InfoWindow({
+        		content: markerC[i].name
+        	});
+        	google.maps.event.addListener(marker, 'mouseover', function() {
+        		this['infowindow'].open(map, this);
         	});
         }
         cityCircle = new google.maps.Circle();
