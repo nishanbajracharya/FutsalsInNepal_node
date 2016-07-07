@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-sm-8 col-xs-12">
-			<h1>Edit</h1>
+			<h1>Edit <%=results.name%> Details</h1>
 			<form action="/futsals/<%= results.name %>/edit" method="POST" id="editfutsal">
 				<input type="hidden" name="_method" value="PUT"/>
 				<label for="name">Name : </label> <input name="name" id="name" type="text" value="<%= results.name %>"> <br><br>
@@ -10,10 +10,13 @@
 				<label for="phone">Phone : </label> <input name="phone" id="phone" type="text" value="<%= results.phone %>"> <br><br>
 				<label for="rate">Rate : Rs </label><input name="rate" id="rate" type="text" value="<%= results.rate %>"> / hour<br><br>
 				<label for="openhours">Open Hours : </label><input name="openhours" id="openhours" type="text" value="<%= results.openhours %>"> <br><br>
-				<button class="button-filled">Save</button>
+				<label for="coordinates"  style="display:none">Coordinates : </label><input type="text" id="coordinates" name="coordinates" style="display:none">
+				<button class="button-filled" style="font-size:11px">Save</button>
+				<a href="/futsals/<%=results.name%>"><button class="button-filled" style="font-size:11px">Cancel</button></a>
 			</form>
 		</div>
-		<div class="col-md-6 col-sm-4 col-xs-12" style="padding-top:4rem">
+		<div class="col-md-6 col-sm-4 col-xs-12" style="">
+		<h1>Click on the map to update your location.</h1>
 			<div id="map" style="height:400px"></div>
 			<script>
 				var map;
@@ -22,6 +25,14 @@
 				if(mp.map !=undefined){
 					mparr = mp.map.split(",");
 				}
+
+				var gmarkers = [];
+				function removeMarkers(){
+					for(i=0; i<gmarkers.length; i++){
+						gmarkers[i].setMap(null);
+					}
+				}
+
 				function initMap() {
 
 					map = new google.maps.Map(document.getElementById('map'), {
@@ -34,6 +45,39 @@
 						title: mp.name,
 						icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
 					});
+					gmarkers.push(marker);
+
+					var geocoder = new google.maps.Geocoder;
+
+					map.addListener('click',function(event){
+						removeMarkers();
+						console.log(event.latLng);
+						var pos = {
+							lat: event.latLng.lat(),
+							lng: event.latLng.lng()
+						};
+
+						//map.panTo(pos);
+
+						geocoder.geocode({'location': pos}, function(results, status) {
+							if (status === google.maps.GeocoderStatus.OK) {
+								if (results[1]) {
+									var marker = new google.maps.Marker({
+										position: pos,
+										map: map
+									});
+									gmarkers.push(marker);
+									console.log(results[1].formatted_address);
+									document.getElementById("address").value = results[1].formatted_address;
+									document.getElementById("coordinates").value = Math.round(pos.lat*10000)/10000+","+Math.round(pos.lng*10000)/10000;
+								} else {
+									window.alert('No results found');
+								}
+							} else {
+								window.alert('Geocoder failed due to: ' + status);
+							}
+						});
+					})
 				}
 			</script>
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9WM8cPSOvqBUNoy_QTYo0ds8u7ReY2Ms&callback=initMap"

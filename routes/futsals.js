@@ -40,6 +40,7 @@ router.route('/:name/edit').post(function(req,res){
 	var phone = Number(req.body.phone);
 	var rate = Number(req.body.rate);
 	var openhours = req.body.openhours;
+	var coordinates = req.body.coordinates;
 	//console.log(rate);
 	//console.log(Futsal);
 	Futsal.findOneAndUpdate({name:name},
@@ -48,7 +49,8 @@ router.route('/:name/edit').post(function(req,res){
 		address: address,
 		phone: phone,
 		rate: rate,
-		openhours: openhours
+		openhours: openhours,
+		map:coordinates
 	},
 	function(err,data){
 		if(err) {
