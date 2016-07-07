@@ -7,8 +7,12 @@
 			<p><% if(results.phone) {%> Phone : <%= results.phone %> <%}%></p>
 			<p><% if(results.rate) {%> Rate : Rs <%= results.rate %> / hour <%}%></p>
 			<p><% if(results.openhours) {%> Open Hours : <%= results.openhours %> <%}%></p>
-			<a href="/futsals/<%=results.name%>/edit"><button class="button-filled">Update</button></a>
-			<a href="/futsals/delete/<%=results.name%>"><button class="button-filled">Delete</button></a>
+			
+			<form action="/futsals/<%=results.name%>/delete" method="POST">
+				<a href="/futsals/<%=results.name%>/edit"><button type="button" class="button-filled">Update</button></a>
+				<button class="button-filled">Delete</button>
+			</form>
+
 		</div>
 		<div class="col-md-6 col-sm-4 col-xs-12" style="padding-top:4rem">
 			<div id="map" style="height:400px"></div>

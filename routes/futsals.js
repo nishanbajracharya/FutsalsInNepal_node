@@ -63,7 +63,7 @@ router.route('/:name/edit').post(function(req,res){
 		}
 		console.log("Updated");
 	})
-	return res.redirect("/");
+	return res.redirect("/futsals/"+nameNew);
 })
 
 router.route('/add').post(function(req,res){
@@ -92,13 +92,13 @@ router.route('/add').post(function(req,res){
 })
 
 
-router.route('/delete/:name').get(function(req,res){
+router.route('/:name/delete').post(function(req,res){
 	var name = req.params.name;
 	console.log("Delete "+name);
-	/*Futsal.remove({name:name},function(err){
+	Futsal.remove({name:name},function(err){
 		if(err) throw err;
 		console.log("Deleted");
-	})*/
+	})
 	return res.redirect("/");
 })
 

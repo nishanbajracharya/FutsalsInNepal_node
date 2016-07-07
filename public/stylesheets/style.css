@@ -51,39 +51,39 @@ button:hover{
 	border-color: #aaa;
 	background: #eee;
 	background-image: linear-gradient(
-      #eee, #ddd
-    );
+		#eee, #ddd
+		);
 }
 button:active{
 	border-color: #aaa;
 	background: #ddd;
 	background-image: linear-gradient(
-      #ccc, #ddd
-    );
+		#ccc, #ddd
+		);
 }
 button.button-filled{
 	background: #48b;
 	color: #fff;
 	border-color: #47a;
 	background-image: linear-gradient(
-      #49c, #48b
-    );
+		#49c, #48b
+		);
 }
 button.button-filled:hover{
 	background: #47a;
 	color: #fff;
 	border-color: #469;
 	background-image: linear-gradient(
-      #48b, #47a
-    );
+		#48b, #47a
+		);
 }
 button.button-filled:active{
 	background: #469;
 	color: #fff;
 	border-color: #469;
 	background-image: linear-gradient(
-      #469, #47a
-    );
+		#469, #47a
+		);
 }
 #allFutsal{
 	display: none;
@@ -120,11 +120,14 @@ button.button-filled:active{
 	font-weight: bold;
 	background: #eee;
 	background-image: linear-gradient(
-      #fafafa, #eee
-    );
+		#fafafa, #eee
+		);
 }
 form *{
 	font-size: 18px;
+}
+form button{
+	font-size: 11px;
 }
 form input{
 	border-radius: 4px;
@@ -141,4 +144,69 @@ form .row{
 }
 #editfutsal label{
 	float: none;
+}
+
+.mobile{
+	display: none;
+}
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+	.desktop{
+		display: none;
+	}
+	.mobile{
+		display: inline;
+		font-size: 15px;
+	}
+	#addFutsal{
+		padding: 0px;
+		width: 48px;
+	}
+	#nearFutsal,#allFutsal{
+		padding: 0 10px;
+	}
+	label{
+		float: none!important;
+	}
+	form{
+		padding:1.5rem;
+	}
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+	#nearFutsal,#allFutsal{
+		display: none;
+	}
+	.futsal{
+		width: 100%!important;
+	}
+}
+
+@media (max-width: 480px) {
+	#nearFutsal,#allFutsal{
+		display: none;
+	}
+	.futsal{
+		width: 100%!important;
+	}
+	.col-xs-4, .col-xs-8{
+		padding: 0!important;
+	}
 }

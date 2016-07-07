@@ -102,7 +102,7 @@
     	nearelements.innerHTML = "";
 
     	for(id in nearFutsalArray){
-    		nearelements.innerHTML+="<div class='futsal col-md-3 col-xs-12 col-sm-4'><div class='elem'><p class='title'>"+nearFutsalArray[id].name+"</p><p class='location'>Address : "+nearFutsalArray[id].address+"</p><p class='Phone'>Phone : "+nearFutsalArray[id].phone+"</p><p class='openhours'>Rate : Rs "+nearFutsalArray[id].rate+" / hour</p><p class='openhours'>Open Hours : "+nearFutsalArray[id].openhours+"</p><a href='/futsals/"+nearFutsalArray[id].name+"'>more</a></div></div>"
+    		nearelements.innerHTML+="<div class='futsal col-md-3 col-xs-6 col-sm-4'><div class='elem'><p class='title'>"+nearFutsalArray[id].name+"</p><p class='location'>Address : "+nearFutsalArray[id].address+"</p><p class='Phone'>Phone : "+nearFutsalArray[id].phone+"</p><p class='openhours'>Rate : Rs "+nearFutsalArray[id].rate+" / hour</p><p class='openhours'>Open Hours : "+nearFutsalArray[id].openhours+"</p><a href='/futsals/"+nearFutsalArray[id].name+"'>more</a></div></div>"
     	}
 
     	cityCircle.setMap(null);
@@ -136,7 +136,7 @@ async defer></script>
 	<div class="container">
 		<div class="row" id="allelements" >
 			<%for (var i in results){%>
-			<div class="futsal col-md-3 col-xs-12 col-sm-4">
+			<div class="futsal col-md-3 col-xs-6 col-sm-4">
 				<div class="elem">
 					<p class="title"><%=results[i].name%></p>   
 					<p class="location">Address : <%=results[i].address%></p>  
