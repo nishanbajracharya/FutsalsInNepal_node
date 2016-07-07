@@ -73,7 +73,7 @@
         	marker['infowindow'] = new google.maps.InfoWindow({
         		content: markerC[i].name
         	});
-        	google.maps.event.addListener(marker, 'mouseclick', function() {
+        	google.maps.event.addListener(marker, 'click', function() {
         		this['infowindow'].open(map, this);
         	});
         }
