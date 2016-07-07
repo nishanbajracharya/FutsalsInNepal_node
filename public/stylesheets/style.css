@@ -139,4 +139,6 @@ form label{
 form .row{
 	margin-bottom: 1rem;
 }
-
+#editfutsal label{
+	float: none;
+}

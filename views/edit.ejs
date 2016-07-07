@@ -2,13 +2,16 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-sm-8 col-xs-12">
-			<p><h1><%= results.name %></h1></p>
-			<p>Address : <%= results.address %></p>
-			<p>Phone : <%= results.phone %></p>
-			<p>Rate : Rs <%= results.rate %> / hour</p>
-			<p>Open Hours : <%= results.openhours %></p>
-			<a href="/futsals/<%=results.name%>/edit"><button class="button-filled">Update</button></a>
-			<a href="/futsals/delete/<%=results.name%>"><button class="button-filled">Delete</button></a>
+			<h1>Edit</h1>
+			<form action="/futsals/<%= results.name %>/edit" method="POST" id="editfutsal">
+				<input type="hidden" name="_method" value="PUT"/>
+				<label for="name">Name : </label> <input name="name" id="name" type="text" value="<%= results.name %>"> <br><br>
+				<label for="address">Address : </label> <input name="address" id="address" type="text" value="<%= results.address %>"> <br><br>
+				<label for="phone">Phone : </label> <input name="phone" id="phone" type="text" value="<%= results.phone %>"> <br><br>
+				<label for="rate">Rate : Rs </label><input name="rate" id="rate" type="text" value="<%= results.rate %>"> / hour<br><br>
+				<label for="openhours">Open Hours : </label><input name="openhours" id="openhours" type="text" value="<%= results.openhours %>"> <br><br>
+				<button class="button-filled">Save</button>
+			</form>
 		</div>
 		<div class="col-md-6 col-sm-4 col-xs-12" style="padding-top:4rem">
 			<div id="map" style="height:400px"></div>
