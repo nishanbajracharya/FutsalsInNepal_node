@@ -151,7 +151,8 @@ form .row{
 }
 
 #fustal-locations{
-	display: inline-block;
+	float: right;
+	display: inline!important;
 }
 
 /* Large desktops and laptops */
