@@ -1,7 +1,7 @@
 <% include layout %>
 <div class="container">
 	<div class="row">
-		<div class="col-md-6 col-sm-8 col-xs-12">
+		<div class="col-md-6 col-sm-6 col-xs-12">
 			<p><% if(results.name) {%><h1><%= results.name %></h1><%}%></p>
 			<p><% if(results.address) {%> Address : <%= results.address %> <%}%></p>
 			<p><% if(results.phone) {%> Phone : <%= results.phone %> <%}%></p>
@@ -14,7 +14,7 @@
 			</form>
 
 		</div>
-		<div class="col-md-6 col-sm-4 col-xs-12" style="padding-top:4rem">
+		<div class="col-md-6 col-sm-6 col-xs-12" style="padding-top:4rem">
 			<div id="map" style="height:400px"></div>
 			<script>
 				var map;

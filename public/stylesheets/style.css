@@ -196,7 +196,7 @@ form .row{
 
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
-	#nearFutsal,#allFutsal{
+	#futsal-locations{
 		display: none;
 	}
 	.futsal{
@@ -205,7 +205,7 @@ form .row{
 }
 
 @media (max-width: 480px) {
-	#nearFutsal,#allFutsal{
+	#futsal-locations{
 		display: none;
 	}
 	.futsal{
