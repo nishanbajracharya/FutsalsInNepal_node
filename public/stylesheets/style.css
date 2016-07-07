@@ -150,6 +150,10 @@ form .row{
 	display: none;
 }
 
+#fustal-locations{
+	display: inline-block;
+}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
 
