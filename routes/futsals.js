@@ -9,6 +9,10 @@ router.use(bodyParser.urlencoded({
 
 router.use(bodyParser.json());
 
+router.route("/").get(function(req,res){
+	return res.redirect("/");
+})
+
 /* GET users listing. */
 router.route('/add').get(function(req, res, next) {
 	res.render("add",{title: 'Futsals In Nepal'});
