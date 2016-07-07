@@ -19,7 +19,7 @@ router.route('/:name').get(function(req,res){
 	var name = req.params.name;
 	Futsal.findOne({name:name},function(err,data){
 		if(err) throw err;
-		//console.log(data);
+		console.log(data);
 		res.render("each",{title:"Futsals In Nepal", results:data})
 	})
 })
